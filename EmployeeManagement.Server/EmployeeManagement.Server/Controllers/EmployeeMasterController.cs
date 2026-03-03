@@ -1,5 +1,6 @@
 using EmployeeManagement.Server.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagement.Server.Controllers;
 
@@ -65,5 +66,39 @@ public class EmployeeMasterController : Controller
         _context.Employees.Remove(existingEmployee);
         _context.SaveChanges();
         return Ok("Çalışan Başarıyla Silindi");
+    }
+
+    [HttpGet("login")]
+    public async Task<IActionResult> Login([FromBody] LoginDTO model)
+    {
+        try
+        {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+            
+            var user = await _context.Employees.FirstOrDefaultAsync(x => x.email == model.email && x.contactNo == model.contactNo);
+
+            if (user == null)
+                return Unauthorized(new { Message = "Geçersiz Kullanıcı Girişi!" });
+
+            return Ok(new
+            {
+                message = "Giriş Başarılı",
+                data = new
+                {
+                    user.employeeId,
+                    user.name,
+                    user.email,
+                    user.contactNo,
+                    user.designationName,
+                    user.designationId,
+                    user.role
+                }
+            });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { Message = ex.Message });
+        }
     }
 }
