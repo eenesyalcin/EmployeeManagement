@@ -38,7 +38,6 @@ public class DesignationMasterController : Controller
             return NotFound("Designation Bulunamadı!");
         }
         
-        existingDesignation.designationId = designation.designationId;
         existingDesignation.departmentId = designation.departmentId;
         existingDesignation.designationName = designation.designationName;
         _context.SaveChanges();
