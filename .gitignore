@@ -1,0 +1,23 @@
+# .NET build klasörleri
+**/bin/
+**/obj/
+
+# Rider / Visual Studio ayarları
+.idea/
+.vs/
+
+# Development config (şifreli connection string burada)
+**/appsettings.Development.json
+
+# Node / frontend
+**/node_modules/
+**/dist/
+**/.angular/
+**/.next/
+
+# Environment dosyaları
+**/.env
+**/.env.*
+
+# Mac sistem dosyaları
+.DS_Store
