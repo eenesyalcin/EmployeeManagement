@@ -12,5 +12,5 @@ public class Designation
     public int departmentId { get; set; }
     
     [Required, MaxLength(50)]
-    public string departmentNmae { get; set; } = string.Empty;
+    public string designationName { get; set; } = string.Empty;
 }
