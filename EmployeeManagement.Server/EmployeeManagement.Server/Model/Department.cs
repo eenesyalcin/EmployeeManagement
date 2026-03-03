@@ -10,7 +10,7 @@ public class Department
     public int departmentId { get; set; }
     
     [Required, MaxLength(50)]
-    public string departmentNmae { get; set; } = string.Empty;
+    public string departmentName { get; set; } = string.Empty;
     
     public bool isActive { get; set; }
 }
