@@ -45,8 +45,7 @@ public class EmployeeMasterController : Controller
         existingEmployee.city = employee.city;
         existingEmployee.state = employee.state;
         existingEmployee.pincode = employee.pincode;
-        existingEmployee.altContactNo = employee.altContactNo;
-        existingEmployee.designationName = employee.designationName;
+        existingEmployee.altContact = employee.altContact;
         existingEmployee.designationId = employee.designationId;
         existingEmployee.createdDate = employee.createdDate;
         existingEmployee.modifiedDate = employee.modifiedDate;
@@ -68,7 +67,7 @@ public class EmployeeMasterController : Controller
         return Ok("Çalışan Başarıyla Silindi");
     }
 
-    [HttpGet("login")]
+    [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginDTO model)
     {
         try
@@ -90,7 +89,6 @@ public class EmployeeMasterController : Controller
                     user.name,
                     user.email,
                     user.contactNo,
-                    user.designationName,
                     user.designationId,
                     user.role
                 }

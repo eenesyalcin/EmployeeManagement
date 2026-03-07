@@ -23,9 +23,7 @@ public class Employee
     
     public string pincode { get; set; } = string.Empty;
     
-    public string altContactNo { get; set; } = string.Empty;
-    
-    public string designationName { get; set; } = string.Empty;
+    public string altContact { get; set; } = string.Empty;
     
     public int designationId { get; set; }
     
