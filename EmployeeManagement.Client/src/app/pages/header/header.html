@@ -1,1 +1,157 @@
-<p>header works!</p>
+<div class="sidebar" [class.close]="isSidebarClosed">
+    <div class="logo-details">
+        <i class="bx bx-menu" (click)="toggleSidebar()"></i>
+        <span class="logo_name">DASHBOARD</span>
+    </div>
+
+    <ul class="nav-links">
+        <li>
+            <div class="icon-link" (click)="toggleMenu($event)">
+                <div class="menu-toggle">
+                    <i class="bx bx-collection"></i>
+                    <span class="link_name">Menü 1</span>
+                </div>
+                <i class="bx bxs-chevron-down arrow"></i>
+            </div>
+            <ul class="sub_menu">
+                <li>
+                    <i class="bx bx-caret-right"></i>
+                    <a href="#">Alt Menü 1.1</a>
+                </li>
+                <li>
+                    <i class="bx bx-caret-right"></i>
+                    <a href="#">Alt Menü 1.2</a>
+                </li>
+                <li>
+                    <i class="bx bx-caret-right"></i>
+                    <a href="#">Alt Menü 1.3</a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <div class="icon-link" (click)="toggleMenu($event)">
+                <div class="menu-toggle">
+                    <i class="bx bx-book-alt"></i>
+                    <span class="link_name">Menü 2</span>
+                </div>
+                <i class="bx bxs-chevron-down arrow"></i>
+            </div>
+            <ul class="sub_menu">
+                <li>
+                    <i class="bx bx-caret-right"></i>
+                    <a href="#">Alt Menü 2.1</a>
+                </li>
+                <li>
+                    <i class="bx bx-caret-right"></i>
+                    <a href="#">Alt Menü 2.2</a>
+                </li>
+                <li>
+                    <i class="bx bx-caret-right"></i>
+                    <a href="#">Alt Menü 2.3</a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <div class="icon-link">
+                <div class="menu-toggle">
+                    <i class="bx bx-pie-chart-alt-2"></i>
+                    <span class="link_name">Menü 3</span>
+                </div>
+            </div>
+            <ul class="sub_menu blank">
+                <li><a href="#">Menü 3</a></li>
+            </ul>
+        </li>
+
+        <li>
+            <div class="icon-link">
+                <div class="menu-toggle">
+                    <i class="bx bx-line-chart"></i>
+                    <span class="link_name">Menü 4</span>
+                </div>
+            </div>
+            <ul class="sub_menu blank">
+                <li><a href="#">Menü 4</a></li>
+            </ul>
+        </li>
+
+        <li>
+            <div class="icon-link" (click)="toggleMenu($event)">
+                <div class="menu-toggle">
+                    <i class="bx bx-plug"></i>
+                    <span class="link_name">Menü 5</span>
+                </div>
+                <i class="bx bxs-chevron-down arrow"></i>
+            </div>
+            <ul class="sub_menu">
+                <li>
+                    <i class="bx bx-caret-right"></i>
+                    <a href="#">Alt Menü 5.1</a>
+                </li>
+                <li>
+                    <i class="bx bx-caret-right"></i>
+                    <a href="#">Alt Menü 5.2</a>
+                </li>
+                <li>
+                    <i class="bx bx-caret-right"></i>
+                    <a href="#">Alt Menü 5.3</a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <div class="icon-link">
+                <div class="menu-toggle">
+                    <i class="bx bx-compass"></i>
+                    <span class="link_name">Menü 6</span>
+                </div>
+            </div>
+            <ul class="sub_menu blank">
+                <li><a href="#">Menü 6</a></li>
+            </ul>
+        </li>
+
+        <li>
+            <div class="icon-link">
+                <a href="#" class="menu-toggle">
+                    <i class="bx bx-history"></i>
+                    <span class="link_name">Menü 7</span>
+                </a>
+            </div>
+            <ul class="sub_menu blank">
+                <li><a href="#">Menü 7</a></li>
+            </ul>
+        </li>
+
+        <li>
+            <div class="icon-link">
+                <div class="menu-toggle">
+                    <i class="bx bx-cog"></i>
+                    <span class="link_name">Menü 8</span>
+                </div>
+            </div>
+            <ul class="sub_menu blank">
+                <li><a href="#">Menü 8</a></li>
+            </ul>
+        </li>
+
+        <li>
+            <div class="profile-details">
+                <div class="profile-content">
+                    <img src="/blank-profile-photo.jpg" alt="">
+                </div>
+                <div class="name-job">
+                    <div class="profile_name">Adı Soyadı</div>
+                    <div class="job">Unvanı</div>
+                </div>
+                <i class="bx bx-log-out"></i>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<section class="home-section">
+    <router-outlet></router-outlet>
+</section>
