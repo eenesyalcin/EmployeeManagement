@@ -1,0 +1,42 @@
+@if (isOpen()) {
+    <div class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2>Departman Ekle</h2>
+                <button class="close-btn" type="button" (click)="close()">×</button>
+            </div>
+
+            <div class="modal-body">
+                <label for="departmentName">Departman Adı</label>
+                <input
+                    id="departmentName"
+                    type="text"
+                    placeholder="Departman adını giriniz">
+
+                <label>Durum</label>
+                <div class="radio-group">
+                    <label class="radio-item">
+                        <input
+                            type="radio"
+                            name="status"
+                            [value]="'Aktif'">
+                        <span>Aktif</span>
+                    </label>
+
+                    <label class="radio-item">
+                        <input
+                            type="radio"
+                            name="status"
+                            [value]="'Pasif'">
+                        <span>Pasif</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="cancel-btn" type="button" (click)="close()">İptal</button>
+                <button class="save-btn" type="button" (click)="save()">Kaydet</button>
+            </div>
+        </div>
+    </div>
+}

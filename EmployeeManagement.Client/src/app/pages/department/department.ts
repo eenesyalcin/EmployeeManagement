@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { DepartmentAdd } from '../department-add/department-add';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-department',
-  imports: [],
+  imports: [CommonModule, DepartmentAdd],
   templateUrl: './department.html',
   styleUrl: './department.scss',
 })
@@ -15,5 +17,11 @@ export class Department {
     { id: 4, name: 'Departman 4', status: 'Aktiflik Durumu 4' },
     { id: 5, name: 'Departman 5', status: 'Aktiflik Durumu 5' }
   ];
+
+  isModalOpen = signal(false);
+
+  openModal() {
+    this.isModalOpen.set(true);
+  }
 
 }
