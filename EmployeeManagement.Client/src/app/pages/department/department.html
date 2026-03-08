@@ -1,1 +1,51 @@
-<p>department works!</p>
+<div class="department-page-body">
+    <div class="table">
+        <div class="table_header">
+            <p>Departmanlar</p>
+            <div>
+                <input type="text" placeholder="Ara">
+                <button class="add_new">Departman Ekle</button>
+            </div>
+        </div>
+
+        <div class="table_section">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Departman</th>
+                        <th>Aktiflik Durumu</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @for (department of departments; track $index; let i = $index){
+                    <tr>
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ department.name }}</td>
+                        <td>{{ department.status }}</td>
+                        <td>
+                            <button>
+                                <i class="bx bx-edit"></i>
+                            </button>
+                            <button>
+                                <i class="bx bx-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pagination">
+            <div><i class="bx bx-chevrons-left"></i></div>
+            <div><i class="bx bx-chevron-left"></i></div>
+            <div>1</div>
+            <div>2</div>
+            <div><i class="bx bx-chevron-right"></i></div>
+            <div><i class="bx bx-chevrons-right"></i></div>
+        </div>
+    </div>
+</div>
