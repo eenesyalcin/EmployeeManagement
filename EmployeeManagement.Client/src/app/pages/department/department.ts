@@ -18,8 +18,15 @@ export class Department implements OnInit {
   masterService = inject(DepartmentService)
   departmentList = signal<DepartmentModel[]>([]);
 
-  ngOnInit(): void {
+  // ngOnInit mekanizması sayfa açıldığında yalnzıca tek bir defa çalıştığı için, trigger mekanizmasının tetiklenmesi ve verilerin yüklenmesi için constructor mekanizmasının kullanılması daha doğrudur.
+  constructor() {
+    this.masterService.departmentRefresh();
     this.getAllDepartments();
+  }
+
+  // ngOnInit mekanizması sayfa açıldığında yalnızca tek bir defa çalışır.
+  ngOnInit(): void {
+
   }
 
   openModal() {
