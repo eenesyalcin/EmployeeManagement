@@ -12,7 +12,9 @@ import { DepartmentService } from '../../services/department-service';
 })
 export class Department implements OnInit {
 
+  selectedDepartment = signal<DepartmentModel | null>(null);
   isModalOpen = signal(false);
+  modalMode = signal<'add' | 'edit'>('add');
 
   departmentObject: DepartmentModel = new DepartmentModel();
   masterService = inject(DepartmentService)
@@ -32,8 +34,17 @@ export class Department implements OnInit {
   }
 
   openModal() {
+    this.selectedDepartment.set(null);
+    this.modalMode.set("add");
     this.isModalOpen.set(true);
   }
+
+  openEditModal(department: DepartmentModel) {
+    this.selectedDepartment.set({ ...department });
+    this.modalMode.set("edit");
+    this.isModalOpen.set(true);
+  }
+
 
   getAllDepartments() {
     this.masterService.getAllDepartment().subscribe({

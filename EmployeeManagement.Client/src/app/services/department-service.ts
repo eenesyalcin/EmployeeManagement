@@ -25,4 +25,8 @@ export class DepartmentService {
     return this.http.post<DepartmentResponseModel>(this.baseUrl + "DepartmentMaster/AddDepartment", object);
   }
 
+  updateDepartment(object: DepartmentModel): Observable<DepartmentResponseModel> {
+    return this.http.put<DepartmentResponseModel>(this.baseUrl + "DepartmentMaster/UpdateDepartment", object);
+  }
+
 }

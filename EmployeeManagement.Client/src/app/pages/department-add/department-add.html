@@ -38,7 +38,7 @@
 
             <div class="modal-footer">
                 <button class="cancel-btn" type="button" (click)="close()">İptal</button>
-                <button class="save-btn" type="button" (click)="onSaveDepartment()">Kaydet</button>
+                <button class="save-btn" type="button" (click)="onSubmit()">{{ modalMode() === 'add' ? 'Kaydet' : 'Güncelle' }}</button>
             </div>
         </div>
     </div>

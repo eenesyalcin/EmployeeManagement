@@ -43,16 +43,26 @@ public class DepartmentMasterController : ControllerBase
     [HttpPut("UpdateDepartment")]
     public IActionResult UpdateDepartment([FromBody] Department department)
     {
-        var existingDepartment = _context.Departments.Find(department.departmentId);
-        if (existingDepartment == null)
+        bool isDepartmentNameExists = _context.Departments.Any(d => d.departmentName.ToLower() == department.departmentName.ToLower());
+        if (isDepartmentNameExists)
         {
-            return NotFound("Departman Bulunamadı!");
+            return BadRequest("Aynı isimde departman mevcut!");
+        }
+        
+        var departmentFromDatabase = _context.Departments.Find(department.departmentId);
+        if (departmentFromDatabase == null)
+        {
+            return NotFound("Departman bulunamadı!");
         }
 
-        existingDepartment.departmentName = department.departmentName;
-        existingDepartment.isActive = department.isActive;
+        departmentFromDatabase.departmentName = department.departmentName;
+        departmentFromDatabase.isActive = department.isActive;
         _context.SaveChanges();
-        return Ok("Departman Başarıyla Güncellendi");
+        return Ok(new
+        {
+            message = "departmanı başarıyla güncellendi.",
+            data = departmentFromDatabase
+        });
     }
 
     [HttpDelete("DeleteDepartment/{departmentId}")]

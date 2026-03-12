@@ -20,13 +20,13 @@
                 </thead>
 
                 <tbody>
-                    @for (department of departmentList(); track $index; let i = $index){
+                    @for (department of departmentList(); track $index){
                     <tr>
                         <td>{{ department.departmentId }}</td>
                         <td>{{ department.departmentName }}</td>
                         <td>{{ department.isActive ? 'Aktif' : 'Pasif' }}</td>
                         <td>
-                            <button>
+                            <button (click)="openEditModal(department)">
                                 <i class="bx bx-edit"></i>
                             </button>
                             <button>
@@ -50,5 +50,5 @@
     </div>
 
     <!-- MODAL -->
-    <department-add [(isOpen)]="isModalOpen"></department-add>
+    <department-add [(isOpen)]="isModalOpen" [selectedDepartment]="selectedDepartment()" [modalMode]="modalMode()"></department-add>
 </div>
