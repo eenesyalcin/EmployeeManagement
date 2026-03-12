@@ -11,7 +11,8 @@
                 <input
                     id="departmentName"
                     type="text"
-                    placeholder="Departman adını giriniz">
+                    placeholder="Departman adını giriniz"
+                    [(ngModel)]="departmentObject.departmentName">
 
                 <label>Durum</label>
                 <div class="radio-group">
@@ -19,7 +20,8 @@
                         <input
                             type="radio"
                             name="status"
-                            [value]="'Aktif'">
+                            [value]="true"
+                            [(ngModel)]="departmentObject.isActive">
                         <span>Aktif</span>
                     </label>
 
@@ -27,7 +29,8 @@
                         <input
                             type="radio"
                             name="status"
-                            [value]="'Pasif'">
+                            [value]="false"
+                            [(ngModel)]="departmentObject.isActive">
                         <span>Pasif</span>
                     </label>
                 </div>
@@ -35,7 +38,7 @@
 
             <div class="modal-footer">
                 <button class="cancel-btn" type="button" (click)="close()">İptal</button>
-                <button class="save-btn" type="button" (click)="save()">Kaydet</button>
+                <button class="save-btn" type="button" (click)="onSaveDepartment()">Kaydet</button>
             </div>
         </div>
     </div>

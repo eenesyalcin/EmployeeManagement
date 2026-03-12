@@ -24,9 +24,20 @@ public class DepartmentMasterController : ControllerBase
     [HttpPost("AddDepartment")]
     public IActionResult AddDepartment([FromBody] Department department)
     {
+        bool exists = _context.Departments.Any(d => d.departmentName.ToLower() == department.departmentName.ToLower());
+
+        if (exists)
+        {
+            return BadRequest("Aynı isimde departman mevcut!");
+        }
+        
         _context.Departments.Add(department);
         _context.SaveChanges();
-        return Ok("Departman Başarıyla Eklendi");
+        return Ok(new
+        {
+            message = "departmanı başarıyla kaydedildi.",
+            data = department
+        });
     }
 
     [HttpPut("UpdateDepartment")]

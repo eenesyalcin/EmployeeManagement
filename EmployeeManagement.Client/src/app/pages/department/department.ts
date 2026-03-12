@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, effect, inject, OnInit, signal } from '@angular/core';
 import { DepartmentAdd } from '../department-add/department-add';
 import { CommonModule } from '@angular/common';
 import { DepartmentModel } from '../../models/department.model';
@@ -20,8 +20,10 @@ export class Department implements OnInit {
 
   // ngOnInit mekanizması sayfa açıldığında yalnzıca tek bir defa çalıştığı için, trigger mekanizmasının tetiklenmesi ve verilerin yüklenmesi için constructor mekanizmasının kullanılması daha doğrudur.
   constructor() {
-    this.masterService.departmentRefresh();
-    this.getAllDepartments();
+    effect(() => {
+      this.masterService.departmentRefresh();
+      this.getAllDepartments();
+    })
   }
 
   // ngOnInit mekanizması sayfa açıldığında yalnızca tek bir defa çalışır.
