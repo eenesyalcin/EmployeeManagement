@@ -20,11 +20,11 @@
                 </thead>
 
                 <tbody>
-                    @for (department of departments; track $index; let i = $index){
+                    @for (department of departmentList(); track $index; let i = $index){
                     <tr>
-                        <td>{{ i + 1 }}</td>
-                        <td>{{ department.name }}</td>
-                        <td>{{ department.status }}</td>
+                        <td>{{ department.departmentId }}</td>
+                        <td>{{ department.departmentName }}</td>
+                        <td>{{ department.isActive ? 'Aktif' : 'Pasif' }}</td>
                         <td>
                             <button>
                                 <i class="bx bx-edit"></i>

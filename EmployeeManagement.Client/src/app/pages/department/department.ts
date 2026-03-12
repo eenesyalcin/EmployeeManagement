@@ -1,6 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { DepartmentAdd } from '../department-add/department-add';
 import { CommonModule } from '@angular/common';
+import { DepartmentModel } from '../../models/department.model';
+import { DepartmentService } from '../../services/department-service';
 
 @Component({
   selector: 'app-department',
@@ -8,20 +10,28 @@ import { CommonModule } from '@angular/common';
   templateUrl: './department.html',
   styleUrl: './department.scss',
 })
-export class Department {
-
-  departments = [
-    { id: 1, name: 'Departman 1', status: 'Aktiflik Durumu 1' },
-    { id: 2, name: 'Departman 2', status: 'Aktiflik Durumu 2' },
-    { id: 3, name: 'Departman 3', status: 'Aktiflik Durumu 3' },
-    { id: 4, name: 'Departman 4', status: 'Aktiflik Durumu 4' },
-    { id: 5, name: 'Departman 5', status: 'Aktiflik Durumu 5' }
-  ];
+export class Department implements OnInit {
 
   isModalOpen = signal(false);
 
+  departmentObject: DepartmentModel = new DepartmentModel();
+  masterService = inject(DepartmentService)
+  departmentList = signal<DepartmentModel[]>([]);
+
+  ngOnInit(): void {
+    this.getAllDepartments();
+  }
+
   openModal() {
     this.isModalOpen.set(true);
+  }
+
+  getAllDepartments() {
+    this.masterService.getAllDepartment().subscribe({
+      next: (result: any) => {
+        this.departmentList.set(result);
+      }
+    })
   }
 
 }
