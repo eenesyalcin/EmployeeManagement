@@ -53,7 +53,7 @@ export class DepartmentAdd {
   onUpdateDepartment() {
     this.departmentService.updateDepartment(this.departmentObject).subscribe({
       next: (result: DepartmentResponseModel) => {
-        alert(result.data.departmentName + " " + result.message);
+        alert(result.message);
         this.departmentService.triggerDepartmentRefresh();
         this.close();
       },
