@@ -54,4 +54,16 @@ export class Department implements OnInit {
     })
   }
 
+  onDeleteDepartments(departmentId: number) {
+    this.masterService.deleteDepartmentById(departmentId).subscribe({
+      next: (result: any) => {
+        alert("Departman başarıyla silindi.");
+        this.masterService.triggerDepartmentRefresh();
+      },
+      error: (error) => {
+        alert(error.error);
+      }
+    })
+  }
+
 }

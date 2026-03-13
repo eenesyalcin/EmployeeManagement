@@ -29,4 +29,8 @@ export class DepartmentService {
     return this.http.put<DepartmentResponseModel>(this.baseUrl + "DepartmentMaster/UpdateDepartment", object);
   }
 
+  deleteDepartmentById(departmentId: number): Observable<string> {
+    return this.http.delete(this.baseUrl + "DepartmentMaster/DeleteDepartment/" + departmentId, { responseType: "text" });
+  }
+
 }

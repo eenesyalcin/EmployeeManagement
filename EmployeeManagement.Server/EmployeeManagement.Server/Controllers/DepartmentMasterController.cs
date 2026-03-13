@@ -74,6 +74,12 @@ public class DepartmentMasterController : ControllerBase
             return NotFound("Departman Bulunamadı!");
         }
         
+        bool hasRelatedDesignation = _context.Designations.Any(x => x.departmentId == departmentId);
+        if (hasRelatedDesignation)
+        {
+            return BadRequest("Bu departmana bağlı unvan kayıtları olduğu için silinemez.");
+        }
+        
         _context.Departments.Remove(existingDepartment);
         _context.SaveChanges();
         return Ok("Departman Başarıyla Silindi");
