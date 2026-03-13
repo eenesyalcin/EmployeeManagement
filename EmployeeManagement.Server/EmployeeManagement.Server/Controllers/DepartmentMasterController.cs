@@ -28,14 +28,14 @@ public class DepartmentMasterController : ControllerBase
 
         if (exists)
         {
-            return BadRequest("Aynı isimde departman mevcut!");
+            return BadRequest( department.departmentName + " isminde departman mevcut!");
         }
         
         _context.Departments.Add(department);
         _context.SaveChanges();
         return Ok(new
         {
-            message = "departmanı başarıyla kaydedildi.",
+            message = department.departmentName + " departmanı başarıyla kaydedildi.",
             data = department
         });
     }
@@ -46,7 +46,7 @@ public class DepartmentMasterController : ControllerBase
         bool isDepartmentNameExists = _context.Departments.Any(d => d.departmentName.ToLower() == department.departmentName.ToLower());
         if (isDepartmentNameExists)
         {
-            return BadRequest("Aynı isimde departman mevcut!");
+            return BadRequest(department.departmentName + " isminde departman mevcut!");
         }
         
         var departmentFromDatabase = _context.Departments.Find(department.departmentId);
@@ -54,13 +54,14 @@ public class DepartmentMasterController : ControllerBase
         {
             return NotFound("Departman bulunamadı!");
         }
+        var oldDepartmentName = departmentFromDatabase.departmentName; 
 
         departmentFromDatabase.departmentName = department.departmentName;
         departmentFromDatabase.isActive = department.isActive;
         _context.SaveChanges();
         return Ok(new
         {
-            message = "departmanı başarıyla güncellendi.",
+            message = oldDepartmentName + " departmanı başarıyla güncellendi.",
             data = departmentFromDatabase
         });
     }
@@ -71,18 +72,18 @@ public class DepartmentMasterController : ControllerBase
         var existingDepartment = _context.Departments.Find(departmentId);
         if (existingDepartment == null)
         {
-            return NotFound("Departman Bulunamadı!");
+            return NotFound("departman bulunamadı!");
         }
         
         bool hasRelatedDesignation = _context.Designations.Any(x => x.departmentId == departmentId);
         if (hasRelatedDesignation)
         {
-            return BadRequest("Bu departmana bağlı unvan kayıtları olduğu için silinemez.");
+            return BadRequest(existingDepartment.departmentName + " departmanına bağlı unvan kayıtları olduğu için silinemez.");
         }
         
         _context.Departments.Remove(existingDepartment);
         _context.SaveChanges();
-        return Ok("Departman Başarıyla Silindi");
+        return Ok(existingDepartment.departmentName + " departmanı başarıyla silindi");
     }
     
 }
