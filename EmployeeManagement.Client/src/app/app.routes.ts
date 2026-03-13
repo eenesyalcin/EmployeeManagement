@@ -6,6 +6,7 @@ import { EmployeeForm } from './pages/employee-form/employee-form';
 import { EmployeeList } from './pages/employee-list/employee-list';
 import { Department } from './pages/department/department';
 import { Designation } from './pages/designation/designation';
+import { Test } from './pages/test/test';
 
 export const routes: Routes = [
     {
@@ -40,6 +41,10 @@ export const routes: Routes = [
             {
                 path: 'designation',
                 component: Designation
+            },
+            {
+                path: 'test',
+                component: Test
             }
         ]
     }
