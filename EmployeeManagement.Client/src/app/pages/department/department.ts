@@ -6,6 +6,8 @@ import { DepartmentService } from '../../services/department-service';
 import { CustomToastrService } from '../../services/custom-toastr-service';
 import { ToastrMessageType } from '../../enums/toastr-message-type';
 import { ToastrPosition } from '../../enums/toastr-position-type';
+import { CustomSpinnerService } from '../../services/custom-spinner-service';
+import { SpinnerSizeType } from '../../enums/spinner-size-type';
 
 @Component({
   selector: 'app-department',
@@ -23,6 +25,7 @@ export class Department implements OnInit {
   masterService = inject(DepartmentService)
   departmentList = signal<DepartmentModel[]>([]);
   customToastrService = inject(CustomToastrService);
+  customSpinnerService = inject(CustomSpinnerService);
 
   // ngOnInit mekanizması sayfa açıldığında yalnzıca tek bir defa çalıştığı için, trigger mekanizmasının tetiklenmesi ve verilerin yüklenmesi için constructor mekanizmasının kullanılması daha doğrudur.
   constructor() {
@@ -51,16 +54,33 @@ export class Department implements OnInit {
 
 
   getAllDepartments() {
+    this.customSpinnerService.showSpinner({
+      size: SpinnerSizeType.Medium,
+    });
     this.masterService.getAllDepartment().subscribe({
       next: (result: any) => {
+        this.customSpinnerService.hideSpinner();
         this.departmentList.set(result);
+      },
+      error: () => {
+        this.customSpinnerService.hideSpinner();
+        this.customToastrService.message({
+          message: "Servis dışı",
+          title: "Silme İşlemi",
+          messageType: ToastrMessageType.Error,
+          position: ToastrPosition.TopRight
+        });
       }
     })
   }
 
   onDeleteDepartments(departmentId: number) {
+    this.customSpinnerService.showSpinner({
+      size: SpinnerSizeType.Medium,
+    });
     this.masterService.deleteDepartmentById(departmentId).subscribe({
       next: (successResult: any) => {
+        this.customSpinnerService.hideSpinner();
         this.customToastrService.message({
           message: successResult,
           title: "Silme İşlemi",
@@ -70,6 +90,7 @@ export class Department implements OnInit {
         this.masterService.triggerDepartmentRefresh();
       },
       error: (errorResult) => {
+        this.customSpinnerService.hideSpinner();
         this.customToastrService.message({
           message: errorResult.error,
           title: "Silme İşlemi",

@@ -7,6 +7,8 @@ import { DepartmentService } from '../../services/department-service';
 import { CustomToastrService } from '../../services/custom-toastr-service';
 import { ToastrMessageType } from '../../enums/toastr-message-type';
 import { ToastrPosition } from '../../enums/toastr-position-type';
+import { CustomSpinnerService } from '../../services/custom-spinner-service';
+import { SpinnerSizeType } from '../../enums/spinner-size-type';
 
 @Component({
   selector: 'department-add',
@@ -23,6 +25,7 @@ export class DepartmentAdd {
   departmentObject: DepartmentModel = new DepartmentModel();
   departmentService = inject(DepartmentService);
   customToastrService = inject(CustomToastrService);
+  customSpinnerService = inject(CustomSpinnerService);
 
   constructor() {
     effect(() => {
@@ -41,8 +44,12 @@ export class DepartmentAdd {
   }
 
   onSaveDepartment() {
+    this.customSpinnerService.showSpinner({
+      size: SpinnerSizeType.Medium,
+    });
     this.departmentService.saveDepartment(this.departmentObject).subscribe({
       next: (successResult: DepartmentResponseModel) => {
+        this.customSpinnerService.hideSpinner();
         this.customToastrService.message({
           message: successResult.message,
           title: "Ekleme İşlemi",
@@ -53,6 +60,7 @@ export class DepartmentAdd {
         this.close();
       },
       error: (errorResult) => {
+        this.customSpinnerService.hideSpinner();
         this.customToastrService.message({
           message: errorResult.error,
           title: "Ekleme İşlemi",
@@ -65,8 +73,12 @@ export class DepartmentAdd {
   }
 
   onUpdateDepartment() {
+    this.customSpinnerService.showSpinner({
+      size: SpinnerSizeType.Medium,
+    });
     this.departmentService.updateDepartment(this.departmentObject).subscribe({
       next: (successResult: DepartmentResponseModel) => {
+        this.customSpinnerService.hideSpinner();
         this.customToastrService.message({
           message: successResult.message,
           title: "Güncelleme İşlemi",
@@ -77,6 +89,7 @@ export class DepartmentAdd {
         this.close();
       },
       error: (errorResult) => {
+        this.customSpinnerService.hideSpinner();
         this.customToastrService.message({
           message: errorResult.error,
           title: "Güncelleme İşlemi",
