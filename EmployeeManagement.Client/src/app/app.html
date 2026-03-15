@@ -1,1 +1,12 @@
 <router-outlet />
+
+<ngx-spinner 
+  [bdColor]="customSpinnerService.currentSpinnerOptions.bdColor"
+  [size]="customSpinnerService.currentSpinnerOptions.size"
+  [color]="customSpinnerService.currentSpinnerOptions.color" 
+  [type]="customSpinnerService.currentSpinnerOptions.type"
+  [fullScreen]="customSpinnerService.currentSpinnerOptions.fullScreen">
+  <p [style.color]="customSpinnerService.currentSpinnerOptions.messageColor">
+    {{ customSpinnerService.currentSpinnerOptions.message }}
+  </p>
+</ngx-spinner>
