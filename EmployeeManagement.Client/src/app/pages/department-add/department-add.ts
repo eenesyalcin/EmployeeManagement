@@ -4,6 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { DepartmentModel } from '../../models/department.model';
 import { DepartmentResponseModel } from '../../models/department-response.model';
 import { DepartmentService } from '../../services/department-service';
+import { CustomToastrService } from '../../services/custom-toastr-service';
+import { ToastrMessageType } from '../../enums/toastr-message-type';
+import { ToastrPosition } from '../../enums/toastr-position-type';
 
 @Component({
   selector: 'department-add',
@@ -19,17 +22,18 @@ export class DepartmentAdd {
 
   departmentObject: DepartmentModel = new DepartmentModel();
   departmentService = inject(DepartmentService);
+  customToastrService = inject(CustomToastrService);
 
   constructor() {
     effect(() => {
       const mode = this.modalMode();
       const department = this.selectedDepartment();
-      if(mode === "edit" && department){
+      if (mode === "edit" && department) {
         this.departmentObject = { ...department };
-      }else{
+      } else {
         this.departmentObject = new DepartmentModel();
       }
-    }) 
+    })
   }
 
   close() {
@@ -38,13 +42,23 @@ export class DepartmentAdd {
 
   onSaveDepartment() {
     this.departmentService.saveDepartment(this.departmentObject).subscribe({
-      next: (result: DepartmentResponseModel) => {
-        alert(result.data.departmentName + " " + result.message);
+      next: (successResult: DepartmentResponseModel) => {
+        this.customToastrService.message({
+          message: successResult.message,
+          title: "Ekleme İşlemi",
+          messageType: ToastrMessageType.Success,
+          position: ToastrPosition.TopRight
+        });
         this.departmentService.triggerDepartmentRefresh();
         this.close();
       },
-      error: (error) => {
-        alert(error.error);
+      error: (errorResult) => {
+        this.customToastrService.message({
+          message: errorResult.error,
+          title: "Ekleme İşlemi",
+          messageType: ToastrMessageType.Error,
+          position: ToastrPosition.TopRight
+        });
         this.close();
       }
     })
@@ -52,22 +66,32 @@ export class DepartmentAdd {
 
   onUpdateDepartment() {
     this.departmentService.updateDepartment(this.departmentObject).subscribe({
-      next: (result: DepartmentResponseModel) => {
-        alert(result.message);
+      next: (successResult: DepartmentResponseModel) => {
+        this.customToastrService.message({
+          message: successResult.message,
+          title: "Güncelleme İşlemi",
+          messageType: ToastrMessageType.Success,
+          position: ToastrPosition.TopRight
+        });
         this.departmentService.triggerDepartmentRefresh();
         this.close();
       },
-      error: (error) => {
-        alert(error.error);
+      error: (errorResult) => {
+        this.customToastrService.message({
+          message: errorResult.error,
+          title: "Güncelleme İşlemi",
+          messageType: ToastrMessageType.Error,
+          position: ToastrPosition.TopRight
+        });
         this.close();
       }
     })
   }
 
-  onSubmit(){
-    if(this.modalMode() === "add"){
+  onSubmit() {
+    if (this.modalMode() === "add") {
       this.onSaveDepartment();
-    }else{
+    } else {
       this.onUpdateDepartment();
     }
   }
