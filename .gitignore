@@ -6,10 +6,10 @@
 .idea/
 .vs/
 
-# Development config (şifreli connection string burada)
+# Development config
 **/appsettings.Development.json
 
-# Node / frontend
+# Node / Frontend
 **/node_modules/
 **/dist/
 **/.angular/
@@ -19,5 +19,5 @@
 **/.env
 **/.env.*
 
-# Mac sistem dosyaları
+# Sistem dosyaları
 .DS_Store
