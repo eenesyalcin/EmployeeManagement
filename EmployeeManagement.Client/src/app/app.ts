@@ -1,7 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { CustomSpinnerService } from './services/custom-spinner-service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +11,5 @@ import { CustomSpinnerService } from './services/custom-spinner-service';
 export class App {
 
   protected readonly title = signal('EmployeeManagement.Client');
-
-  customSpinnerService = inject(CustomSpinnerService);
 
 }

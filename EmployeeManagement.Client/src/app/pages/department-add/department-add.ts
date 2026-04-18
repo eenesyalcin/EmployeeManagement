@@ -7,8 +7,9 @@ import { DepartmentService } from '../../services/department-service';
 import { CustomToastrService } from '../../services/custom-toastr-service';
 import { ToastrMessageType } from '../../enums/toastr-message-type';
 import { ToastrPosition } from '../../enums/toastr-position-type';
-import { CustomSpinnerService } from '../../services/custom-spinner-service';
-import { SpinnerSizeType } from '../../enums/spinner-size-type';
+import { Base } from '../base/base';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { SpinnerType } from '../../enums/spinner-type';
 
 @Component({
   selector: 'department-add',
@@ -16,7 +17,7 @@ import { SpinnerSizeType } from '../../enums/spinner-size-type';
   templateUrl: './department-add.html',
   styleUrl: './department-add.scss',
 })
-export class DepartmentAdd {
+export class DepartmentAdd extends Base {
 
   selectedDepartment = input<DepartmentModel | null>(null);
   modalMode = input<'add' | 'edit'>('add');
@@ -25,9 +26,10 @@ export class DepartmentAdd {
   departmentObject: DepartmentModel = new DepartmentModel();
   departmentService = inject(DepartmentService);
   customToastrService = inject(CustomToastrService);
-  customSpinnerService = inject(CustomSpinnerService);
 
-  constructor() {
+  constructor(spinner: NgxSpinnerService) {
+    super(spinner);
+
     effect(() => {
       const mode = this.modalMode();
       const department = this.selectedDepartment();
@@ -44,12 +46,10 @@ export class DepartmentAdd {
   }
 
   onSaveDepartment() {
-    this.customSpinnerService.showSpinner({
-      size: SpinnerSizeType.Medium,
-    });
+    this.hideSpinner(SpinnerType.BallClipRotate);
     this.departmentService.saveDepartment(this.departmentObject).subscribe({
       next: (successResult: DepartmentResponseModel) => {
-        this.customSpinnerService.hideSpinner();
+        this.hideSpinner(SpinnerType.BallClipRotate);
         this.customToastrService.message({
           message: successResult.message,
           title: "Ekleme İşlemi",
@@ -60,7 +60,7 @@ export class DepartmentAdd {
         this.close();
       },
       error: (errorResult) => {
-        this.customSpinnerService.hideSpinner();
+        this.hideSpinner(SpinnerType.BallClipRotate);
         this.customToastrService.message({
           message: errorResult.error,
           title: "Ekleme İşlemi",
@@ -73,12 +73,10 @@ export class DepartmentAdd {
   }
 
   onUpdateDepartment() {
-    this.customSpinnerService.showSpinner({
-      size: SpinnerSizeType.Medium,
-    });
+    this.hideSpinner(SpinnerType.BallClipRotate);
     this.departmentService.updateDepartment(this.departmentObject).subscribe({
       next: (successResult: DepartmentResponseModel) => {
-        this.customSpinnerService.hideSpinner();
+        this.hideSpinner(SpinnerType.BallClipRotate);
         this.customToastrService.message({
           message: successResult.message,
           title: "Güncelleme İşlemi",
@@ -89,7 +87,7 @@ export class DepartmentAdd {
         this.close();
       },
       error: (errorResult) => {
-        this.customSpinnerService.hideSpinner();
+        this.hideSpinner(SpinnerType.BallClipRotate);
         this.customToastrService.message({
           message: errorResult.error,
           title: "Güncelleme İşlemi",

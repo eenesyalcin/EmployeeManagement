@@ -1,12 +1,31 @@
 <router-outlet />
 
 <ngx-spinner 
-  [bdColor]="customSpinnerService.currentSpinnerOptions.bdColor"
-  [size]="customSpinnerService.currentSpinnerOptions.size"
-  [color]="customSpinnerService.currentSpinnerOptions.color" 
-  [type]="customSpinnerService.currentSpinnerOptions.type"
-  [fullScreen]="customSpinnerService.currentSpinnerOptions.fullScreen">
-  <p [style.color]="customSpinnerService.currentSpinnerOptions.messageColor">
-    {{ customSpinnerService.currentSpinnerOptions.message }}
-  </p>
+  name = "ballClipRotate"
+  bdColor = "rgba(0, 0, 0, 0.8)" 
+  size = "medium" 
+  color = "#fff" 
+  type = "ball-clip-rotate" 
+  [fullScreen] = "true">
+  <p style="color: white" > Lütfen Bekleyiniz... </p>
+</ngx-spinner>
+
+<ngx-spinner
+  name = "ballSpinClockwise" 
+  bdColor = "rgba(0, 0, 0, 0.8)" 
+  size = "medium" 
+  color = "#fff" 
+  type = "ball-spin-clockwise" 
+  [fullScreen] = "true">
+  <p style="color: white" > Lütfen Bekleyiniz... </p>
+</ngx-spinner>
+
+<ngx-spinner 
+  name = "timer"
+  bdColor = "rgba(0, 0, 0, 0.8)" 
+  size = "medium" 
+  color = "#fff" 
+  type = "timer" 
+  [fullScreen] = "true">
+  <p style="color: white" > Lütfen Bekleyiniz... </p>
 </ngx-spinner>

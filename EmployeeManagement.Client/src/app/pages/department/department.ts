@@ -6,8 +6,9 @@ import { DepartmentService } from '../../services/department-service';
 import { CustomToastrService } from '../../services/custom-toastr-service';
 import { ToastrMessageType } from '../../enums/toastr-message-type';
 import { ToastrPosition } from '../../enums/toastr-position-type';
-import { CustomSpinnerService } from '../../services/custom-spinner-service';
-import { SpinnerSizeType } from '../../enums/spinner-size-type';
+import { Base } from '../base/base';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { SpinnerType } from '../../enums/spinner-type';
 
 @Component({
   selector: 'app-department',
@@ -15,7 +16,7 @@ import { SpinnerSizeType } from '../../enums/spinner-size-type';
   templateUrl: './department.html',
   styleUrl: './department.scss',
 })
-export class Department implements OnInit {
+export class Department extends Base implements OnInit {
 
   selectedDepartment = signal<DepartmentModel | null>(null);
   isModalOpen = signal(false);
@@ -25,10 +26,12 @@ export class Department implements OnInit {
   masterService = inject(DepartmentService)
   departmentList = signal<DepartmentModel[]>([]);
   customToastrService = inject(CustomToastrService);
-  customSpinnerService = inject(CustomSpinnerService);
 
   // ngOnInit mekanizması sayfa açıldığında yalnzıca tek bir defa çalıştığı için, trigger mekanizmasının tetiklenmesi ve verilerin yüklenmesi için constructor mekanizmasının kullanılması daha doğrudur.
-  constructor() {
+  constructor(spinner: NgxSpinnerService) {
+    super(spinner);
+
+    // "effect" kullanımı bazı yerlerde sıkıntı çıkarabiliyor!!!
     effect(() => {
       this.masterService.departmentRefresh();
       this.getAllDepartments();
@@ -54,16 +57,14 @@ export class Department implements OnInit {
 
 
   getAllDepartments() {
-    this.customSpinnerService.showSpinner({
-      size: SpinnerSizeType.Medium,
-    });
+    this.showSpinner(SpinnerType.BallClipRotate);
     this.masterService.getAllDepartment().subscribe({
       next: (result: any) => {
-        this.customSpinnerService.hideSpinner();
+        this.hideSpinner(SpinnerType.BallClipRotate);
         this.departmentList.set(result);
       },
       error: () => {
-        this.customSpinnerService.hideSpinner();
+        this.hideSpinner(SpinnerType.BallClipRotate);
         this.customToastrService.message({
           message: "Servis dışı",
           title: "Silme İşlemi",
@@ -75,12 +76,10 @@ export class Department implements OnInit {
   }
 
   onDeleteDepartments(departmentId: number) {
-    this.customSpinnerService.showSpinner({
-      size: SpinnerSizeType.Medium,
-    });
+    this.showSpinner(SpinnerType.BallClipRotate);
     this.masterService.deleteDepartmentById(departmentId).subscribe({
       next: (successResult: any) => {
-        this.customSpinnerService.hideSpinner();
+        this.hideSpinner(SpinnerType.BallClipRotate);
         this.customToastrService.message({
           message: successResult,
           title: "Silme İşlemi",
@@ -90,7 +89,7 @@ export class Department implements OnInit {
         this.masterService.triggerDepartmentRefresh();
       },
       error: (errorResult) => {
-        this.customSpinnerService.hideSpinner();
+        this.hideSpinner(SpinnerType.BallClipRotate);
         this.customToastrService.message({
           message: errorResult.error,
           title: "Silme İşlemi",

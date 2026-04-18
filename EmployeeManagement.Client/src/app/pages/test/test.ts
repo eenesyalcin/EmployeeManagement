@@ -2,10 +2,9 @@ import { Component, inject } from '@angular/core';
 import { CustomToastrService } from '../../services/custom-toastr-service';
 import { ToastrMessageType } from '../../enums/toastr-message-type';
 import { ToastrPosition } from '../../enums/toastr-position-type';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { CustomSpinnerService } from '../../services/custom-spinner-service';
-import { SpinnerSizeType } from '../../enums/spinner-size-type';
 import { SpinnerType } from '../../enums/spinner-type';
+import { Base } from '../base/base';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-test',
@@ -13,12 +12,13 @@ import { SpinnerType } from '../../enums/spinner-type';
   templateUrl: './test.html',
   styleUrl: './test.scss',
 })
-export class Test {
+export class Test extends Base {
 
   customToastrService = inject(CustomToastrService);
-  customSpinnerService = inject(CustomSpinnerService);
 
-  constructor() {
+  constructor(spinner: NgxSpinnerService) {
+    super(spinner);
+
     // this.customToastrService.message("Test mesaj", "Test Title", ToastrMessageType.Success);
     // this.customToastrService.message("Test mesaj", "Test Title", ToastrMessageType.Info);
     // this.customToastrService.message("Test mesaj", "Test Title", ToastrMessageType.Warning);
@@ -97,27 +97,16 @@ export class Test {
     });
   }
 
-  showSpinnerManuel() {
-    this.customSpinnerService.showSpinner({
-      bdColor: 'rgba(0, 0, 0, 0.5)',
-      size: SpinnerSizeType.Large,
-      color: '#00ffcc',
-      type: SpinnerType.Timer,
-      fullScreen: false,
-      messageColor: 'red',
-      message: 'Veriler yükleniyor...'
-    });
-
-    setTimeout(() => {
-      this.customSpinnerService.hideSpinner();
-    }, 3000);
+  ballClipRotateShowSpinner() {
+    this.showSpinner(SpinnerType.BallClipRotate);
   }
 
-  showSpinnerWithDurationParameter() {
-    this.customSpinnerService.showSpinner({
-      size: SpinnerSizeType.Medium,
-      type: SpinnerType.Timer,
-    }, 3000);
+  ballSpinClockwiseShowSpinner() {
+    this.showSpinner(SpinnerType.BallSpinClockwise);
+  }
+
+  timerShowSpinner() {
+    this.showSpinner(SpinnerType.Timer);
   }
 
 }

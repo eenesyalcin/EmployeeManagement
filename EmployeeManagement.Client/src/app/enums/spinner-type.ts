@@ -1,5 +1,5 @@
 export enum SpinnerType {
-    BallClipRotate = "ball-clip-rotate",
-    BallSpinClockwise = "ball-spin-clockwise",
+    BallClipRotate = "ballClipRotate",
+    BallSpinClockwise = "ballSpinClockwise",
     Timer = "timer"
 }
